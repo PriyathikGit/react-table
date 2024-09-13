@@ -8,14 +8,23 @@ import { InputNumber } from 'primereact/inputnumber';
 import { Button } from 'primereact/button';
 import './index.css';
 
-const Table = () => {
-  const [data, setData] = useState([]);
-  const [selectProduct, setSelectProduct] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalRecords, setTotalRecords] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [showDialog, setShowDialog] = useState(false);
-  const [rowsToSelect, setRowsToSelect] = useState("");
+interface Artwork {
+  id: number;
+  title: string;
+  place_of_origin: string;
+  artist_display: string;
+  date_start: number;
+  date_end: number;
+}
+
+const Table: React.FC = () => {
+  const [data, setData] = useState<Artwork[]>([]);
+  const [selectProduct, setSelectProduct] = useState<Artwork[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [totalRecords, setTotalRecords] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [showDialog, setShowDialog] = useState<boolean>(false);
+  const [rowsToSelect, setRowsToSelect] = useState<string>('');
   const rowsPerPage = 10;
   useEffect(() => {
     const getData = async () => {
@@ -30,17 +39,19 @@ const Table = () => {
     };
     getData();
   }, [page]);
-  const onPageChange = (e) => {
+  const onPageChange = (e: { page: number }) => {
     setPage(e.page + 1);
   };
   const handleTitleClick = () => {
     setShowDialog(true);
     console.log('heello');
   };
-  const handleSelectRows = () => {
-    const selectedRows = data.slice(0, rowsToSelect); // Select the specified number of rows
-    setSelectProduct(selectedRows);
-    setShowDialog(false);
+  const handleSelectRows = (): void => {
+    if (rowsToSelect !== null) {
+      const selectedRows = data.slice(0, rowsToSelect); // Select the specified number of rows
+      setSelectProduct(selectedRows);
+      setShowDialog(false);
+    }
   };
 
   const titleHeader = (
@@ -125,7 +136,13 @@ const Table = () => {
           <Dialog
             visible={showDialog}
             onHide={() => setShowDialog(false)}
-            footer={<Button label="Select Rows" onClick={handleSelectRows} className='border border-slate-500 p-2 mt-4 rounded-md'/>}
+            footer={
+              <Button
+                label="Select Rows"
+                onClick={handleSelectRows}
+                className="border border-slate-500 p-2 mt-4 rounded-md"
+              />
+            }
             className="bg-white absolute left-[20rem] top-[6rem] p-4 border border-slate-800"
           >
             <div>
@@ -136,7 +153,7 @@ const Table = () => {
                 min={0}
                 max={data.length}
                 placeholder="Number of rows"
-                className='border border-slate-400 mt-2'
+                className="border border-slate-400 mt-2"
               />
             </div>
           </Dialog>
