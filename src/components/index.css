@@ -1,0 +1,15 @@
+.custom-paginator .p-paginator-pages .p-paginator-page {
+    margin-right: 24px; /* Add spacing between pagination buttons */
+    background-color: pink;
+    padding: 8px 16px;
+    border-radius: 12px;
+  }
+  
+  .custom-paginator .p-paginator-prev,
+  .custom-paginator .p-paginator-next {
+    margin-right: 8px; /* Add spacing for previous and next buttons */
+  }
+
+  .p-checkbox-box{
+    display: none;
+  }
