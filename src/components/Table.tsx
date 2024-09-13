@@ -48,9 +48,12 @@ const Table: React.FC = () => {
   };
   const handleSelectRows = (): void => {
     if (rowsToSelect !== null) {
-      const selectedRows = data.slice(0, rowsToSelect); // Select the specified number of rows
-      setSelectProduct(selectedRows);
-      setShowDialog(false);
+      const numRowsToSelect = Number(rowsToSelect); // Convert to number
+      if (!isNaN(numRowsToSelect) && numRowsToSelect > 0) {
+        const selectedRows = data.slice(0, numRowsToSelect); // Select the specified number of rows
+        setSelectProduct(selectedRows);
+        setShowDialog(false);
+      }
     }
   };
 
