@@ -24,7 +24,7 @@ const Table: React.FC = () => {
   const [totalRecords, setTotalRecords] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [showDialog, setShowDialog] = useState<boolean>(false);
-  const [rowsToSelect, setRowsToSelect] = useState<string>('');
+  const [rowsToSelect, setRowsToSelect] = useState<number>();
   const rowsPerPage = 10;
   useEffect(() => {
     const getData = async () => {
@@ -152,7 +152,7 @@ const Table: React.FC = () => {
               <p>Enter the number of rows you want to select:</p>
               <InputNumber
                 value={rowsToSelect}
-                onValueChange={(e) => setRowsToSelect(e.value)}
+                onValueChange={(e) => setRowsToSelect(Number(e.value))}
                 min={0}
                 max={data.length}
                 placeholder="Number of rows"
